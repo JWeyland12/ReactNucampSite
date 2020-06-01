@@ -13,7 +13,7 @@ class CampsiteInfo extends Component {
                     <h4>Comments</h4>
                     {comments.map((com) => {
                         return (
-                            <div key={comments.id}>
+                            <div key={com.id}>
                                 <div>{com.text}</div>
                                 <div>
                                     --{com.author}, {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "short", day: "2-digit" }).format(new Date(Date.parse(com.date)))}
@@ -49,9 +49,11 @@ class CampsiteInfo extends Component {
         const campsite = this.props.campsite;
         if (campsite) {
             return (
-                <div className="row">
-                    {this.renderCampsite(campsite)}
-                    {this.renderComments(this.props.campsite.comments)}
+                <div className="container">
+                    <div className="row">
+                        {this.renderCampsite(campsite)}
+                        {this.renderComments(this.props.campsite.comments)}
+                    </div>
                 </div>
             );
         }
