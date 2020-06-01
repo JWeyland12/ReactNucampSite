@@ -1,35 +1,30 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from "reactstrap";
 
-class CampsiteInfo extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    renderComments(comments) {
-        if (comments) {
-            return (
-                <div className="col-md-5 m-1">
-                    <h4>Comments</h4>
-                    {comments.map((com) => {
-                        return (
-                            <div key={com.id}>
-                                <div>{com.text}</div>
-                                <div>
-                                    --{com.author}, {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "short", day: "2-digit" }).format(new Date(Date.parse(com.date)))}
-                                </div>
-                                <br />
+    
+function RenderComments({comments}) {
+    if (comments) {
+        return (
+            <div className="col-md-5 m-1">
+                <h4>Comments</h4>
+                {comments.map((com) => {
+                    return (
+                        <div key={com.id}>
+                            <div>{com.text}</div>
+                            <div>
+                                --{com.author}, {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "short", day: "2-digit" }).format(new Date(Date.parse(com.date)))}
                             </div>
-                        );
-                    })}
-                </div>
-            );
-        }
-        return <div />;
+                            <br />
+                        </div>
+                    );
+                })}
+            </div>
+        );
     }
+    return <div />;
+}
 
-    renderCampsite(campsite) {
-        if (campsite) {
+function RenderCampsite({campsite}) {
             return (
                 <div className="col-md-5 m-1">
                     <Card>
@@ -41,24 +36,22 @@ class CampsiteInfo extends Component {
                     </Card>
                 </div>
             );
-        }
-        return <div />;
     }
 
-    render() {
-        const campsite = this.props.campsite;
+    function CampsiteInfo(props) {
+        const campsite = props.campsite;
         if (campsite) {
             return (
                 <div className="container">
                     <div className="row">
-                        {this.renderCampsite(campsite)}
-                        {this.renderComments(this.props.campsite.comments)}
+                        <RenderCampsite campsite={props.campsite}/>
+                        <RenderComments comments={props.campsite.comments}/>
                     </div>
                 </div>
             );
         }
         return <div />;
     }
-}
+
 
 export default CampsiteInfo;
